@@ -33,7 +33,7 @@ public class Main {
         try {
             // create Gson instance
             Gson gson = new Gson();
-
+            //Reader reader = Files.newBufferedReader(Paths.get("C:\\Users\\Lucas\\IdeaProjects\\ElPresidente\\src\\main\\resources\\" + choosenScenario));
             Reader reader = Files.newBufferedReader(Paths.get("C:\\Users\\Lucas\\IdeaProjects\\ElPresidente\\src\\main\\resources\\" + choosenScenario));
 
             // convert JSON file to map
