@@ -35,7 +35,7 @@ public class Main {
             Gson gson = new Gson();
 
             // create a reader
-            Reader reader = Files.newBufferedReader(Paths.get("C:\\Users\\Lucas\\IdeaProjects\\ElPresidente\\src\\main\\resources\\" + choosenScenario));
+            Reader reader = Files.newBufferedReader(Paths.get("C:\\Users\\lucas.rochette\\Documents\\GitHub\\ElPresidente\\src\\main\\resources\\" + choosenScenario));
 
             // convert JSON file to map
             Map<?, ?> map = gson.fromJson(reader, Map.class);
