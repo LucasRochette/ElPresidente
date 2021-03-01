@@ -52,16 +52,18 @@ public class Main {
             double treasury = (double) baseParameters.get("treasury");
             double foodUnits = (double) baseParameters.get("foodUnits");
 
+            List events = (List) map.get("events");
+
+            System.out.println(events);
 
             // getting all faction object in a list
             Map factions = (Map) baseParameters.get("factions");
             ArrayList<String> list = new ArrayList<String>(factions.values());
-            System.out.println(list);
             List<Faction> factionList = Arrays.asList(gson.fromJson(String.valueOf(list), Faction[].class));
 
 
 
-            //Setting game parameters
+            //Setting game parameters into game Object
             Game game = new Game();
             game.setName(name);
             game.setStory(story);
@@ -87,53 +89,6 @@ public class Main {
             ex.printStackTrace();
         }
 
-
-        //Object obj = parser.parse(new FileReader("C:\\Users\\Lucas\\IdeaProjects\\ElPresidente\\src\\main\\resources\\"+choosenScenario));
-
-       /* JsonObject scenario = (JsonObject) obj;
-
-        // getting name and story
-        String name = scenario.get("name").getAsString();
-        String story = scenario.get("story").getAsString();
-
-        Game game = new Game();
-
-
-        JsonObject allParameters = (JsonObject) scenario.get("gameStartParameters");
-        JsonObject startParameters = (JsonObject) allParameters.get("NORMAL");
-        JsonObject factions = (JsonObject) startParameters.get("factions");
-
-        int agriculturePercentage = startParameters.get("agriculturePercentage").getAsInt();
-        int industryPercentage = startParameters.get("industryPercentage").getAsInt();
-        int treasury = startParameters.get("treasury").getAsInt();
-        int foodUnits = startParameters.get("foodUnits").getAsInt();
-
-
-
-        game.setStory(story);
-        game.setName(name);
-
-        game.setAgriculturePercentage(agriculturePercentage);
-        game.setIndustryPercentage(industryPercentage);
-        game.setTreasury(treasury);
-        game.setFoodUnits(foodUnits);
-
-
-
-
-        System.out.println("Description : "+game.getStory());
-        System.out.println("Scénario de jeu : "+game.getName());
-        System.out.println(game.getFoodUnits());
-        System.out.println(factions);
-
-        List<Faction> factionList = new ArrayList<>();
-
-        for(Iterator iterator = factions.keySet().iterator(); iterator.hasNext();) {
-
-            String key = (String) iterator.next();
-            System.out.println(factions.get(key));
-
-        }*/
     }
 
     public static void main(String[] args) throws IOException {
