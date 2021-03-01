@@ -34,7 +34,6 @@ public class Main {
             // create Gson instance
             Gson gson = new Gson();
 
-            // create a reader
             Reader reader = Files.newBufferedReader(Paths.get("C:\\Users\\Lucas\\IdeaProjects\\ElPresidente\\src\\main\\resources\\" + choosenScenario));
 
             // convert JSON file to map
@@ -53,14 +52,16 @@ public class Main {
             double foodUnits = (double) baseParameters.get("foodUnits");
 
             List events = (List) map.get("events");
-
+            for(Object e : events)
+            {
+                System.out.println(e);
+            }
             System.out.println(events);
 
             // getting all faction object in a list
             Map factions = (Map) baseParameters.get("factions");
             ArrayList<String> list = new ArrayList<String>(factions.values());
             List<Faction> factionList = Arrays.asList(gson.fromJson(String.valueOf(list), Faction[].class));
-
 
 
             //Setting game parameters into game Object
@@ -73,6 +74,7 @@ public class Main {
             game.setFoodUnits(foodUnits);
             game.setFactions(factionList);
             game.setGlobalSatisfactionPercentage(game.countGlobalSatisfaction());
+
 
             System.out.println("Mode de jeu : "+game.getName());
             System.out.println("Description : "+game.getStory());
