@@ -3,7 +3,6 @@ public class Sector {
     private String name;
     private int dedicated;
 
-
     public Sector(String name, int dedicated) {
         this.name = name;
         this.dedicated = dedicated;
