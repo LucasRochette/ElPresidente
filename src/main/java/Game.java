@@ -1,8 +1,11 @@
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -159,16 +162,15 @@ public class Game {
     }
 
     public void loadScenario(String choosenScenario) {
-        choosenScenario = "attackOnTitans.json";
+        choosenScenario = "coldWarUSSR.json";
         try {
             // create Gson instance
             Gson gson = new Gson();
 
+            // get the file from ressource folder
+            InputStream is = getClass().getClassLoader().getResourceAsStream(choosenScenario);
             // create a reader
-
-            // Reader reader = Files.newBufferedReader(Paths.get("C:\\Users\\lucas.rochette\\Documents\\GitHub\\ElPresidente\\src\\main\\resources\\" + choosenScenario));
-            Reader reader = Files.newBufferedReader(Paths.get("C:\\Users\\Lucas\\IdeaProjects\\ElPresidente\\src\\main\\resources\\" + choosenScenario));
-
+            Reader reader = new InputStreamReader(is);
             // convert JSON file to map
             Map<?, ?> map = gson.fromJson(reader, Map.class);
 
@@ -233,7 +235,7 @@ public class Game {
             //List events = (List) map.get("events");
             /*for(Object e : events)
             {
-                                   
+
                 String json = gson.toJson(e);
 
                 System.out.println(json);
