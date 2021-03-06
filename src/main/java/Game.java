@@ -1,3 +1,5 @@
+package main.java;
+
 import java.util.List;
 
 public class Game {
@@ -147,5 +149,14 @@ public class Game {
         globalSatisfactionPercentage=globalSatisfactionPercentage/totalPartisan;
         return globalSatisfactionPercentage;
 
+    }
+    public void bribes(Faction faction){
+        if (getTreasury() >= ((double)(faction.getSupporters()*15))){
+            setTreasury(getTreasury() - ((double)faction.getSupporters() * 15 ));
+            faction.setApprobation((int) (faction.getApprobation()*1.1));
+            if (faction.getApprobation() > 100 ){
+                faction.setApprobation(100);
+            }
+        }
     }
 }
