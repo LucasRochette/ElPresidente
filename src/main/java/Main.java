@@ -34,5 +34,17 @@ public class Main {
         Game game = new Game();
         game.loadScenario("attackontitans");
 
+
+        Menu menu = new Menu(game);
+
+
+
+
+        boolean gameIsLive=true;
+        while(gameIsLive)
+        {
+            gameIsLive=false;
+
+        }
     }
 }

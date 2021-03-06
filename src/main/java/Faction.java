@@ -34,7 +34,7 @@ public class Faction {
         return satisfactionPercentage;
     }
 
-    private void setApprobation(int approbation) {
+    protected void setApprobation(int approbation) {
         this.satisfactionPercentage = approbation;
     }
 
@@ -42,7 +42,7 @@ public class Faction {
         return numberOfPartisans;
     }
 
-    private void setSupporters(int supporters) {
+    protected void setSupporters(int supporters) {
         this.numberOfPartisans = supporters;
     }
 }
