@@ -11,6 +11,12 @@ public class Choice {
         this.name = name;
         this.effects = effects;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + " [name=" + name + ",effects="+effects+"]";
+    }
+
     public String getName() {
         return name;
     }

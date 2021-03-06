@@ -190,8 +190,8 @@ public class Game {
             //System.out.println(events);
 
 
-            List<Event> gameEvents = null;
-            List<Choice> gameChoices = null;
+            ArrayList<Event> gameEvents = new ArrayList<>();
+            ArrayList<Choice> gameChoices = new ArrayList<>();
             for(Object e : events)
             {
 
@@ -214,33 +214,18 @@ public class Game {
 
 
                     List effects = (List) choiceObj.get("effects"); // List of effects
-                    System.out.println(effects);
 
                     //Choice actualChoice = new Choice(choiceName,effects.toString());
-                    //actualEvent.addChoice(choiceName,effects.toString());         _____ Still working on it
+                    //gameChoices.add(actualChoice);
+                   actualEvent.addChoice(choiceName,effects.toString());
                     //choiceList.add(actualChoice);
-                   /* for(Object eff : effects)
-                    {
-                        LinkedTreeMap<Object,Object> effType = (LinkedTreeMap) eff;
-                        String onFaction = effType.get("actionOnFaction").toString();
-                        String onFactor = effType.get("actionOnFactor").toString();
-                        actualChoice.setActionOnFaction(onFaction);
-                        actualChoice.setActionOnFactor(onFactor);
-                    }*/
+
                 }
 
                 //actualEvent.setChoices(choiceList);
-                //gameEvents.add(actualEvent);  ____ Still working on it
+                gameEvents.add(actualEvent);
             }
-            //List events = (List) map.get("events");
-            /*for(Object e : events)
-            {
 
-                String json = gson.toJson(e);
-
-                System.out.println(json);
-            }*/
-            //System.out.println(events);
 
             // getting all faction object in a list
             Map factions = (Map) baseParameters.get("factions");
@@ -267,7 +252,7 @@ public class Game {
             System.out.println("---- Treasury : "+this.getTreasury()+" - FoodUnits : "+this.getFoodUnits()+" ----");
             System.out.println(this.getFactions());
             System.out.println("---- Global statisfaction percentage : "+this.getGlobalSatisfactionPercentage()+" ----");
-
+            System.out.println("---- Events : "+this.getEvents());
             // close reader
             reader.close();
 

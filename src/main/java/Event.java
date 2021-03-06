@@ -3,9 +3,9 @@ import java.util.List;
 
 public class Event {
     private String name;
-    private List<Choice> choices=new ArrayList();
+    private ArrayList<Choice> choices;
 
-    public Event(String name, List<Choice> choices) {
+    public Event(String name, ArrayList<Choice> choices) {
         this.name = name;
         this.choices = choices;
     }
@@ -14,7 +14,10 @@ public class Event {
         this.name = eventName;
     }
 
-
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + " [name=" + name + ",choices="+choices+"]";
+    }
     public String getName() {
         return name;
     }
@@ -27,7 +30,7 @@ public class Event {
         return choices;
     }
 
-    public void setChoices(List<Choice> choices) {
+    public void setChoices(ArrayList<Choice> choices) {
         this.choices = choices;
     }
 
