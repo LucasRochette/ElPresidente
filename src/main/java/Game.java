@@ -4,13 +4,8 @@ import com.google.gson.internal.LinkedTreeMap;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Field;
+import java.util.*;
 
 public class Game {
 
@@ -18,14 +13,15 @@ public class Game {
     private String story;
     private int season;
     private int year;
-    private double agriculturePercentage;
-    private double industryPercentage;
+    private double agriculture;
+    private double industry;
     private double globalSatisfactionPercentage;
     private double treasury;
     private double foodUnits;
     private int difficulty;
 
     private List<Faction> factions;
+    private List<Factor> factors;
     private List<Event> events;
 
 
@@ -34,13 +30,13 @@ public class Game {
 
     }
 
-    public Game(String name, String story, int season, int year, int agriculturePercentage, int industryPercentage, double globalSatisfactionPercentage, int treasury, int difficulty, List<Faction> factions, List<Event> events) {
+    public Game(String name, String story, int season, int year, int agriculture, int industry, double globalSatisfactionPercentage, int treasury, int difficulty, List<Faction> factions, List<Event> events) {
         this.name = name;
         this.story = story;
         this.season = season;
         this.year = year;
-        this.agriculturePercentage = agriculturePercentage;
-        this.industryPercentage = industryPercentage;
+        this.agriculture = agriculture;
+        this.industry = industry;
         this.globalSatisfactionPercentage = globalSatisfactionPercentage;
         this.treasury = treasury;
         this.difficulty = difficulty;
@@ -81,20 +77,20 @@ public class Game {
         this.year = year;
     }
 
-    public double getAgriculturePercentage() {
-        return agriculturePercentage;
+    public double getAgriculture() {
+        return agriculture;
     }
 
-    protected void setAgriculturePercentage(double agriculturePercentage) {
-        this.agriculturePercentage = agriculturePercentage;
+    protected void setAgriculture(double agriculture) {
+        this.agriculture = agriculture;
     }
 
-    public double getIndustryPercentage() {
-        return industryPercentage;
+    public double getIndustry() {
+        return industry;
     }
 
-    protected void setIndustryPercentage(double industryPercentage) {
-        this.industryPercentage = industryPercentage;
+    protected void setIndustry(double industry) {
+        this.industry = industry;
     }
 
     public double getGlobalSatisfactionPercentage() {
@@ -111,6 +107,15 @@ public class Game {
 
     protected void setFactions(List<Faction> factions) {
         this.factions = factions;
+    }
+
+
+    public List<Factor> getFactors() {
+        return factors;
+    }
+
+    protected void setFactors(List<Factor> factors) {
+        this.factors = factors;
     }
 
     public List<Event> getEvents() {
@@ -161,6 +166,14 @@ public class Game {
 
     }
 
+    protected void incrementSeason()
+    {
+        if(this.season==4)
+        {
+
+        }
+    }
+
     public void loadScenario(String choosenScenario) {
         choosenScenario = "attackOnTitans.json";
         try {
@@ -185,6 +198,14 @@ public class Game {
             double industryPercentage = (double) baseParameters.get("industryPercentage");
             double treasury = (double) baseParameters.get("treasury");
             double foodUnits = (double) baseParameters.get("foodUnits");
+
+
+            this.factors = new ArrayList<>();
+            this.addFactor("Agriculture",agriculturePercentage);
+            this.addFactor("industry",industryPercentage);
+            this.addFactor("treasury",treasury);
+            this.addFactor("food",foodUnits);
+
 
             ArrayList events = (ArrayList) map.get("events");
             //System.out.println(events);
@@ -246,18 +267,19 @@ public class Game {
             //Game game = new Game();
             this.setName(name);
             this.setStory(story);
-            this.setAgriculturePercentage(agriculturePercentage);
-            this.setIndustryPercentage(industryPercentage);
+           /* this.setAgriculture(agriculturePercentage);
+            this.setIndustry(industryPercentage);
             this.setTreasury(treasury);
-            this.setFoodUnits(foodUnits);
+            this.setFoodUnits(foodUnits);*/
             this.setFactions(factionList);
             this.setGlobalSatisfactionPercentage(this.countGlobalSatisfaction());
             this.setEvents(gameEvents);
 
             System.out.println("Mode de jeu : "+this.getName());
             System.out.println("Description : "+this.getStory());
-            System.out.println("---- Agriculture percentage : "+this.getAgriculturePercentage()+" - Industry percentage : "+this.getIndustryPercentage()+" ----");
-            System.out.println("---- Treasury : "+this.getTreasury()+" - FoodUnits : "+this.getFoodUnits()+" ----");
+        //    System.out.println("---- Agriculture percentage : "+this.getAgriculture()+" - Industry percentage : "+this.getIndustry()+" ----");
+        //    System.out.println("---- Treasury : "+this.getTreasury()+" - FoodUnits : "+this.getFoodUnits()+" ----");
+            System.out.println(this.getFactors());
             System.out.println(this.getFactions());
             System.out.println("---- Global statisfaction percentage : "+this.getGlobalSatisfactionPercentage()+" ----");
             System.out.println("---- Events : "+this.getEvents());
@@ -279,4 +301,126 @@ public class Game {
             }
         }
     }
+
+
+    protected void addFactor(String name, double value){
+        Factor f = new Factor(name,value);
+        this.factors.add(f);
+    }
+
+    public void affectFactionSatisfaction(Faction faction, double approbationPercentage) {
+        double actualApprobation = faction.getApprobation();
+        double newApprobation = actualApprobation*(1+(approbationPercentage/100));
+        newApprobation=(double)Math.round(newApprobation * 100d) / 100d; // Limiting the result to two decimals
+        faction.setApprobation(newApprobation);
+    }
+
+
+    public void applyEffects(Effect effectsObj)
+    {
+        if(effectsObj.getOnFactions()!=null)
+        {
+            Map<String,Double> onFactions = effectsObj.getOnFactions();
+            this.applyEffectOnFaction(onFactions);
+
+        }
+
+        if(effectsObj.getOnFactors()!=null)
+        {
+            Map<String,Double> onFactors = effectsObj.getOnFactors();
+            this.applyEffectOnFactor(onFactors);
+
+        }
+
+        if(effectsObj.getPartisans()!=null)
+        {
+            double partisans = effectsObj.getPartisans();
+            this.affectPartisanNumber(partisans);
+        }
+
+
+    }
+
+    private void affectPartisanNumber(double partisans) {
+        int partisanQty=(int) partisans;
+        if(this.getTotalPartisans()+partisans<=0)
+        {
+            System.out.println("Tous vos partisans sont morts. GAME OVER");
+            return;
+        }
+
+        for(int i=0;i<partisanQty;i++)
+        {
+            Random rand = new Random();
+            Faction randomFaction;
+            do{
+                randomFaction = this.getFactions().get(rand.nextInt(this.getFactions().size()));
+            }while(randomFaction.getSupporters()<1);
+            randomFaction.setSupporters(randomFaction.getSupporters()+1);
+        }
+    }
+
+
+    public void applyEffectOnFaction(Map<String,Double> onFactions) {
+        for (Map.Entry<String, Double> entry : onFactions.entrySet()) {
+            String factionName = entry.getKey();
+            Double approbationPercentage = entry.getValue();
+            System.out.println(factionName);
+            System.out.println(approbationPercentage);
+            for (Faction faction : this.getFactions()) {
+                if (faction.getName().equalsIgnoreCase(factionName)) {
+                    this.affectFactionSatisfaction(faction, approbationPercentage);
+                }
+            }
+        }
+    }
+    public void applyEffectOnFactor(Map<String,Double> onFactors) {
+        for (Map.Entry<String, Double> entry : onFactors.entrySet()) {
+            String factorName = entry.getKey();
+            Double value = entry.getValue();
+            System.out.println(factorName);
+            System.out.println(value);
+            Field[] fields = this.getClass().getDeclaredFields();
+            for (Factor factor : this.getFactors()) {
+                if (factor.getName().equalsIgnoreCase(factorName)) {
+                    this.affectFactor(factor, value);
+                }
+            }
+
+        }
+    }
+
+    public void affectFactor(Factor factor, double value)
+    {
+        double actualValue=factor.getValue();
+
+        if(factor.getName().equalsIgnoreCase("TREASURY"))
+        {
+            double newValue = actualValue+value;
+            factor.setValue(newValue);
+            return;
+        }
+
+        double newValue = actualValue*(1+(value/100));
+        if(newValue<0)
+        {
+            newValue=0;
+        }
+        else if(newValue>100)
+        {
+            newValue=100;
+        }
+        factor.setValue(newValue);
+    }
+
+    public double getTotalPartisans()
+    {
+        double total=0;
+        for(Faction faction : factions)
+        {
+            total+=faction.getSupporters();
+        }
+        return total;
+    }
+
 }

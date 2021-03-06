@@ -3,7 +3,7 @@ public class Faction {
     //Attributes
 
     private String name;
-    private int satisfactionPercentage;
+    private double satisfactionPercentage;
     private int numberOfPartisans;
 
 
@@ -30,11 +30,11 @@ public class Faction {
         this.name = name;
     }
 
-    public int getApprobation() {
+    public double getApprobation() {
         return satisfactionPercentage;
     }
 
-    protected void setApprobation(int approbation) {
+    protected void setApprobation(double approbation) {
         this.satisfactionPercentage = approbation;
     }
 

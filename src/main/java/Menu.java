@@ -1,7 +1,5 @@
 import java.lang.reflect.Array;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Menu {
     Game game;
@@ -36,6 +34,8 @@ public class Menu {
     {
         String choice;
         boolean isNumeric=false;
+        int season = this.game.getSeason();
+        int year = this.game.getYear();
         do{
             System.out.println("1 - ??Définir les facteurs Agriculture et Industrie");
             System.out.println("2 - Passer au tour suivant");
@@ -53,6 +53,7 @@ public class Menu {
                 break;
             case "2":
                 System.out.println("case 2");
+               // this.game.incrementSeason;
                 this.callEvent();
                 break;
             case "3":
@@ -93,8 +94,17 @@ public class Menu {
         }while(!isNumeric || Integer.parseInt(choice)<1 || Integer.parseInt(choice)>i);
 
         Choice choosenChoiceForEvent=eventChoices.get(Integer.parseInt(choice)-1);
-        System.out.println(choosenChoiceForEvent);
+        Effect effectsObj = choosenChoiceForEvent.getEffectsObj();
 
+        game.applyEffects(effectsObj);
+
+        System.out.println(effectsObj);
+
+
+        System.out.println(this.game.getFactions());
+        System.out.println("nb total de partisans : "+this.game.getTotalPartisans());
+        //System.out.println(this.game.getFactors());
+        this.gameMenu();
     }
 
 
