@@ -1,4 +1,13 @@
+import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
+
+import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class Game {
 
@@ -138,7 +147,7 @@ public class Game {
     {
         double globalSatisfactionPercentage=0;
         double totalPartisan = 0;
-        for(Faction fac : this.factions) {
+         for(Faction fac : this.factions) {
             double partisan=fac.getSupporters();
             double satisfaction=fac.getApprobation();
             totalPartisan+=partisan;
@@ -146,6 +155,123 @@ public class Game {
         }
         globalSatisfactionPercentage=globalSatisfactionPercentage/totalPartisan;
         return globalSatisfactionPercentage;
+
+    }
+
+    public void loadScenario(String choosenScenario) {
+        choosenScenario = "attackOnTitans.json";
+        try {
+            // create Gson instance
+            Gson gson = new Gson();
+
+            // create a reader
+
+            // Reader reader = Files.newBufferedReader(Paths.get("C:\\Users\\lucas.rochette\\Documents\\GitHub\\ElPresidente\\src\\main\\resources\\" + choosenScenario));
+            Reader reader = Files.newBufferedReader(Paths.get("C:\\Users\\Lucas\\IdeaProjects\\ElPresidente\\src\\main\\resources\\" + choosenScenario));
+
+            // convert JSON file to map
+            Map<?, ?> map = gson.fromJson(reader, Map.class);
+
+            // getting name and story of the loaded game mode
+            String name = (String) map.get("name");
+            String story = (String) map.get("story");
+
+
+            Map gameStartParameters = (Map) map.get("gameStartParameters");
+            Map baseParameters = (Map) gameStartParameters.get("NORMAL");
+            double agriculturePercentage = (double) baseParameters.get("agriculturePercentage");
+            double industryPercentage = (double) baseParameters.get("industryPercentage");
+            double treasury = (double) baseParameters.get("treasury");
+            double foodUnits = (double) baseParameters.get("foodUnits");
+
+            ArrayList events = (ArrayList) map.get("events");
+            //System.out.println(events);
+
+
+            List<Event> gameEvents = null;
+            List<Choice> gameChoices = null;
+            for(Object e : events)
+            {
+
+                LinkedTreeMap<Object,Object> eventObj = (LinkedTreeMap) e;
+                String eventName = eventObj.get("name").toString(); // Name of the event
+
+                Event actualEvent = new Event(eventName,gameChoices);
+
+                //List<Choice> choiceList = null;
+                List choices = (List) eventObj.get("choices"); // List of choices + each effect
+
+                // System.out.println(choices);
+                for(Object c : choices)
+                {
+                    //List<Choice>
+
+                    LinkedTreeMap<Object,Object> choiceObj = (LinkedTreeMap) c;
+                    String choiceName = choiceObj.get("choice").toString();
+
+
+
+                    List effects = (List) choiceObj.get("effects"); // List of effects
+                    System.out.println(effects);
+
+                    //Choice actualChoice = new Choice(choiceName,effects.toString());
+                    //actualEvent.addChoice(choiceName,effects.toString());         _____ Still working on it
+                    //choiceList.add(actualChoice);
+                   /* for(Object eff : effects)
+                    {
+                        LinkedTreeMap<Object,Object> effType = (LinkedTreeMap) eff;
+                        String onFaction = effType.get("actionOnFaction").toString();
+                        String onFactor = effType.get("actionOnFactor").toString();
+                        actualChoice.setActionOnFaction(onFaction);
+                        actualChoice.setActionOnFactor(onFactor);
+                    }*/
+                }
+
+                //actualEvent.setChoices(choiceList);
+                //gameEvents.add(actualEvent);  ____ Still working on it
+            }
+            //List events = (List) map.get("events");
+            /*for(Object e : events)
+            {
+                                   
+                String json = gson.toJson(e);
+
+                System.out.println(json);
+            }*/
+            //System.out.println(events);
+
+            // getting all faction object in a list
+            Map factions = (Map) baseParameters.get("factions");
+            ArrayList<String> list = new ArrayList<String>(factions.values());
+            List<Faction> factionList = Arrays.asList(gson.fromJson(String.valueOf(list), Faction[].class));
+
+
+
+            //Setting game parameters into game Object
+            //Game game = new Game();
+            this.setName(name);
+            this.setStory(story);
+            this.setAgriculturePercentage(agriculturePercentage);
+            this.setIndustryPercentage(industryPercentage);
+            this.setTreasury(treasury);
+            this.setFoodUnits(foodUnits);
+            this.setFactions(factionList);
+            this.setGlobalSatisfactionPercentage(this.countGlobalSatisfaction());
+            this.setEvents(gameEvents);
+
+            System.out.println("Mode de jeu : "+this.getName());
+            System.out.println("Description : "+this.getStory());
+            System.out.println("---- Agriculture percentage : "+this.getAgriculturePercentage()+" - Industry percentage : "+this.getIndustryPercentage()+" ----");
+            System.out.println("---- Treasury : "+this.getTreasury()+" - FoodUnits : "+this.getFoodUnits()+" ----");
+            System.out.println(this.getFactions());
+            System.out.println("---- Global statisfaction percentage : "+this.getGlobalSatisfactionPercentage()+" ----");
+
+            // close reader
+            reader.close();
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
 
     }
 }
