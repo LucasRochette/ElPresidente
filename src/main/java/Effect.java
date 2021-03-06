@@ -1,17 +1,27 @@
+
 import java.util.Map;
 
 public class Effect {
 
     private Map<String,Double> onFactions;
     private Map<String,Double> onFactors;
-    private Map<String,Double> onResources;
+    private Double partisans;
 
+    public Effect(Map<String, Double> onFactions, Map<String, Double> onFactors, Double partisans) {
+        this.onFactions = onFactions;
+        this.onFactors = onFactors;
+        this.partisans = partisans;
+    }
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + " [onFaction=" + onFactions + ",onFactors="+onFactors+ ",partisans="+partisans+"]";
+    }
 
     public Map<String, Double> getOnFactions() {
         return onFactions;
     }
 
-    public void setOnFactions(Map<String, Double> onFactions) {
+    protected void setOnFactions(Map<String, Double> onFactions) {
         this.onFactions = onFactions;
     }
 
@@ -19,15 +29,16 @@ public class Effect {
         return onFactors;
     }
 
-    public void setOnFactors(Map<String, Double> onFactors) {
+    protected void setOnFactors(Map<String, Double> onFactors) {
         this.onFactors = onFactors;
     }
 
-    public Map<String, Double> getOnResources() {
-        return onResources;
+
+    public Double getPartisans() {
+        return partisans;
     }
 
-    public void setOnResources(Map<String, Double> onResources) {
-        this.onResources = onResources;
+    protected void setPartisans(Double partisans) {
+        this.partisans = partisans;
     }
 }
