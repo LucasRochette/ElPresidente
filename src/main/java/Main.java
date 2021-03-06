@@ -41,10 +41,7 @@ public class Main {
 
 
         boolean gameIsLive=true;
-        while(gameIsLive)
-        {
-            gameIsLive=false;
 
-        }
+            menu.gameMenu();
     }
 }

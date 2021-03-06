@@ -162,7 +162,7 @@ public class Game {
     }
 
     public void loadScenario(String choosenScenario) {
-        choosenScenario = "coldWarUSSR.json";
+        choosenScenario = "attackOnTitans.json";
         try {
             // create Gson instance
             Gson gson = new Gson();
@@ -191,10 +191,10 @@ public class Game {
 
 
             ArrayList<Event> gameEvents = new ArrayList<>();
-            ArrayList<Choice> gameChoices = new ArrayList<>();
+
             for(Object e : events)
             {
-
+                ArrayList<Choice> gameChoices = new ArrayList<>();
                 LinkedTreeMap<Object,Object> eventObj = (LinkedTreeMap) e;
                 String eventName = eventObj.get("name").toString(); // Name of the event
 
