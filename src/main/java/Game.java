@@ -215,11 +215,19 @@ public class Game {
 
                     List effects = (List) choiceObj.get("effects"); // List of effects
 
-                    //Choice actualChoice = new Choice(choiceName,effects.toString());
-                    //gameChoices.add(actualChoice);
-                   actualEvent.addChoice(choiceName,effects.toString());
-                    //choiceList.add(actualChoice);
+                  // actualEvent.addChoice(choiceName,effects.toString());
+                    Effect actualEffect = null;
+                    for(Object ef : effects)
+                    {
+                        LinkedTreeMap<Object,Object> allEffects = (LinkedTreeMap) ef;
+                        Map onFaction = (Map) allEffects.get("actionOnFaction");
+                        Map onFactor = (Map) allEffects.get("actionOnFactor");
+                        Double partisans = (Double) allEffects.get("partisans");
+                        actualEffect = new Effect(onFaction,onFactor,partisans);
 
+
+                    }
+                    actualEvent.addChoice(choiceName,actualEffect);
                 }
 
                 //actualEvent.setChoices(choiceList);

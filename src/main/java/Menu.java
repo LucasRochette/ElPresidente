@@ -74,35 +74,27 @@ public class Menu {
         String choice;
 
         boolean isNumeric=false;
-
+        int i;
         do{
+            i=0;
             System.out.println("/!\\/!\\/!\\ Evenement /!\\/!\\/!\\");
             System.out.println(eventName);
-            int i = 1;
+
             for(Choice e : eventChoices)
             {
-                System.out.println(i+" "+e.getName());
                 i++;
+                System.out.println(i+" - "+e.getName());
+
             }
             Scanner scan = new Scanner(System.in);
             choice = scan.nextLine();
             isNumeric = choice.chars().allMatch( Character::isDigit );
 
-        }while(!isNumeric || Integer.parseInt(choice)<1 || Integer.parseInt(choice)>3);
+        }while(!isNumeric || Integer.parseInt(choice)<1 || Integer.parseInt(choice)>i);
 
-        switch (choice)
-        {
-            case "1":
-                System.out.println("case 1");
-                break;
-            case "2":
-                System.out.println("case 2");
-                this.callEvent();
-                break;
-            case "3":
-                System.out.println("case 3 - end game");
-                break;
-        }
+        Choice choosenChoiceForEvent=eventChoices.get(Integer.parseInt(choice)-1);
+        System.out.println(choosenChoiceForEvent);
+
     }
 
 

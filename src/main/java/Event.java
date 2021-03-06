@@ -22,7 +22,7 @@ public class Event {
         return name;
     }
 
-    public void setName(String name) {
+    protected void setName(String name) {
         this.name = name;
     }
 
@@ -30,12 +30,13 @@ public class Event {
         return choices;
     }
 
-    public void setChoices(ArrayList<Choice> choices) {
+    protected void setChoices(ArrayList<Choice> choices) {
         this.choices = choices;
     }
 
-    public void addChoice(String name, String effects){
-        Choice c = new Choice(name,effects);
+
+    protected void addChoice(String name, Effect actualEffect){
+        Choice c = new Choice(name,actualEffect);
         this.choices.add(c);
     }
 }
