@@ -281,7 +281,7 @@ public class Game {
             double treasury = (double) baseParameters.get("treasury");
             double foodUnits = (double) baseParameters.get("foodUnits");
 
-
+            //adding factors to the game
             this.factors = new ArrayList<>();
             this.addFactor("Agriculture",agriculturePercentage);
             this.addFactor("industry",industryPercentage);
@@ -346,7 +346,6 @@ public class Game {
 
 
             //Setting game parameters into game Object
-            //Game game = new Game();
             this.setName(name);
             this.setStory(story);
             this.setSeason(0);
@@ -357,12 +356,7 @@ public class Game {
 
             System.out.println("Mode de jeu : "+this.getName());
             System.out.println("Description : "+this.getStory());
-        //    System.out.println("---- Agriculture percentage : "+this.getAgriculture()+" - Industry percentage : "+this.getIndustry()+" ----");
-        //    System.out.println("---- Treasury : "+this.getTreasury()+" - FoodUnits : "+this.getFoodUnits()+" ----");
-           // System.out.println(this.getFactors());
-          //  System.out.println(this.getFactions());
-         //   System.out.println("---- Global statisfaction percentage : "+this.getGlobalSatisfactionPercentage()+" ----");
-            //System.out.println("---- Events : "+this.getEvents());
+
             // close reader
             reader.close();
 
@@ -462,7 +456,7 @@ public class Game {
                 randomFaction = this.getFactions().get(rand.nextInt(this.getFactions().size()));
                 randomFaction.setSupporters(randomFaction.getSupporters()+1);
             }
-
+            this.setGlobalSatisfactionPercentage(this.countGlobalSatisfaction());
         }
 
     private void removePartisanRandomly(int partisans)
@@ -474,28 +468,25 @@ public class Game {
             randomFaction = this.getFactions().get(rand.nextInt(this.getFactions().size()));
             randomFaction.setSupporters(randomFaction.getSupporters()-1);
         }
-
+        this.setGlobalSatisfactionPercentage(this.countGlobalSatisfaction());
     }
 
     public void applyEffectOnFaction(Map<String,Double> onFactions) {
         for (Map.Entry<String, Double> entry : onFactions.entrySet()) {
             String factionName = entry.getKey();
             Double approbationPercentage = entry.getValue();
-            System.out.println(factionName);
-            System.out.println(approbationPercentage);
             for (Faction faction : this.getFactions()) {
                 if (faction.getName().equalsIgnoreCase(factionName)) {
                     this.affectFactionSatisfaction(faction, approbationPercentage);
                 }
             }
         }
+        this.setGlobalSatisfactionPercentage(this.countGlobalSatisfaction());
     }
     public void applyEffectOnFactor(Map<String,Double> onFactors) {
         for (Map.Entry<String, Double> entry : onFactors.entrySet()) {
             String factorName = entry.getKey();
             Double value = entry.getValue();
-            System.out.println(factorName);
-            System.out.println(value);
             Field[] fields = this.getClass().getDeclaredFields();
             for (Factor factor : this.getFactors()) {
                 if (factor.getName().equalsIgnoreCase(factorName)) {
@@ -568,5 +559,14 @@ public class Game {
         double generated = this.getIndustry()*10;
         this.setTreasury(this.getTreasury()+generated);
         System.out.println("Votre industrie a généré "+generated+"$ de profits cette année.");
+    }
+
+    public void displayAll()
+    {
+        System.out.println("---- Pourcentage dédié à l'agriculture : "+this.getAgriculture()+" - Pourcentage dédié à l'industrie : "+this.getIndustry()+" ----");
+        System.out.println("---- Trésorerie : "+this.getTreasury()+" - Unités de nourriture : "+this.getFoodUnits()+" ----");
+        System.out.println(this.getFactions());
+        System.out.println("---- Nombre total de partisans : "+this.getTotalPartisans()+" ----");
+        System.out.println("---- Satisfaction globale : "+this.getGlobalSatisfactionPercentage()+" ----");
     }
 }

@@ -51,13 +51,15 @@ public class Menu {
         int year = this.game.getYear();
         if(season==0 && year>0) // 1 year passed
         {
+            this.game.reviewAgricultureEndOfYear();
+            this.game.reviewIndustryEndOfYear();
             this.gameMenuForNewYear();
         }
         String choice;
         boolean isNumeric=false;
         Scanner scan = new Scanner(System.in);
         do{
-            System.out.println("1 - ??Définir les facteurs Agriculture et Industrie");
+            System.out.println("1 - Afficher les statistiques de votre île");
             System.out.println("2 - Passer au tour suivant");
             System.out.println("3 - Abandonner la partie");
 
@@ -72,7 +74,8 @@ public class Menu {
         switch (choice)
         {
             case "1":
-                System.out.println("case 1");
+                this.game.displayAll();
+                this.gameMenu();
                 break;
             case "2":
                 System.out.println("case 2");
@@ -89,17 +92,16 @@ public class Menu {
     }
     public void gameMenuForNewYear()
     {
-        this.game.reviewAgricultureEndOfYear();
-        this.game.reviewIndustryEndOfYear();
         String choice;
         boolean isNumeric=false;
         System.out.println("___ Une année vient de s'écouler sur votre île ___");
         Scanner scan = new Scanner(System.in);
         do{
-            System.out.println("1 - Définir les facteurs Agriculture et Industrie");
-            System.out.println("2 - Soudoyer une faction");
-            System.out.println("3 - Passer au tour suivant");
-            System.out.println("4 - Abandonner la partie");
+            System.out.println("1 - Afficher les statistiques de votre île");
+            System.out.println("2 - Acheter des denrées alimentaires");
+            System.out.println("3 - Soudoyer une faction");
+            System.out.println("4 - Passer au tour suivant");
+            System.out.println("5 - Abandonner la partie");
             choice = scan.nextLine();
             isNumeric = choice.chars().allMatch( Character::isDigit );
             if(choice.isEmpty())
@@ -111,18 +113,22 @@ public class Menu {
         switch (choice)
         {
             case "1":
-                System.out.println("case 1");
+                this.game.displayAll();
+                this.gameMenuForNewYear();
                 break;
             case "2":
                 System.out.println("case 2");
-                this.bribesRequest();
                 break;
             case "3":
+                System.out.println("case 2");
+                this.bribesRequest();
+                break;
+            case "4":
                 System.out.println("case 3");
                 this.game.incrementSeason();
                 this.callEvent();
                 break;
-            case "4":
+            case "5":
                 System.out.println("case 4 - end game");
                 this.callExit();
                 break;
