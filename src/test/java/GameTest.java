@@ -28,9 +28,9 @@ public class GameTest {
         game.bribes(game.getFactions().get(0));
         game.getFactions().get(1).setApprobation(0);
         game.getFactions().get(2).setApprobation(100);
-        Assert.assertEquals(33,game.getFactions().get(0).getApprobation());
-        Assert.assertEquals(0,game.getFactions().get(1).getApprobation());
-        Assert.assertEquals(100,game.getFactions().get(2).getApprobation());
+        Assert.assertEquals(33,game.getFactions().get(0).getApprobation(),0.01);
+        Assert.assertEquals(0,game.getFactions().get(1).getApprobation(),0.01);
+        Assert.assertEquals(100,game.getFactions().get(2).getApprobation(),0.01);
 
 
     }

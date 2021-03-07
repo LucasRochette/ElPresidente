@@ -129,6 +129,14 @@ public class Game {
     }
 
     public double getTreasury() {
+        double treasury = 0;
+        for(Factor f : this.factors)
+        {
+            if(f.getName().equalsIgnoreCase("TREASURY"))
+            {
+                treasury=f.getValue();
+            }
+        }
         return treasury;
     }
 
@@ -327,12 +335,18 @@ public class Game {
     }
 
     public void bribes(Faction faction){
-        if (getTreasury() >= ((double)(faction.getSupporters()*15))){
+        if (getTreasury() >= ((double)(faction.getSupporters()*15)) && (faction.getApprobation() < 100)){
             setTreasury(getTreasury() - ((double)faction.getSupporters() * 15 ));
-            faction.setApprobation((int) (faction.getApprobation()*1.1));
+            faction.setApprobation( (faction.getApprobation()*1.1));
             if (faction.getApprobation() > 100 ){
                 faction.setApprobation(100);
             }
+        }
+        else if (getTreasury() < ((double)(faction.getSupporters()*15)) ){
+            System.out.println("Vous n'avez pas assez de fond");
+        }
+        else if (faction.getApprobation() >= 100){
+            System.out.println("Le taux de satisfaction est au maximum");
         }
     }
 
