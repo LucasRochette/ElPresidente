@@ -538,5 +538,35 @@ public class Game {
         }
         return total;
     }
+    public void reviewAgricultureEndOfYear()
+    {
+        // Calculating needed food and making population growth or decrease
+        double totalFood = this.getFoodUnits()+(this.getAgriculture()*40);
+        int partisans = (int) this.getTotalPartisans();
+        double neededFood = partisans*4;
+        int foodBalance = (int) Math.round(totalFood-neededFood);
 
+        if(foodBalance>0)
+        {
+            Random rn = new Random();
+            double coefficient = rn.nextInt(10) + 1;
+            int newPartisanValue=(int) Math.round(this.getTotalPartisans()*(1+(coefficient/100)));
+            int partisansToAdd= (int) (newPartisanValue-partisans);
+            this.addPartisanRandomly(partisansToAdd);
+            System.out.println("Votre agriculture ayant été exédentaire sur l'année, "+partisansToAdd+" nouveaux partisans apparaissent sur votre île.");
+        }
+        else if(foodBalance<0)
+        {
+            int partisansToRemove=foodBalance/4;
+            removePartisanRandomly(partisansToRemove);
+            System.out.println("Votre agriculture ayant été déficitaire sur l'année, "+partisansToRemove+" sont décédés sur votre île.");
+        }
+    }
+    public void reviewIndustryEndOfYear()
+    {
+        // Calculating and adding profits of the year
+        double generated = this.getIndustry()*10;
+        this.setTreasury(this.getTreasury()+generated);
+        System.out.println("Votre industrie a généré "+generated+"$ de profits cette année.");
+    }
 }
