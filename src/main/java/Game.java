@@ -550,21 +550,7 @@ public class Game {
         double neededFood = partisans*4;
         int foodBalance = (int) Math.round(totalFood-neededFood);
 
-<<<<<<< HEAD
-    public double getScore() {
-        return score;
-    }
 
-    public void setScore(double score) {
-        this.score = score;
-    }
-
-    public void incrementScore(){
-        this.setScore(this.getScore() + (this.getDifficulty()*100) + (this.getTotalPartisans() * this.getGlobalSatisfactionPercentage() * this.getDifficulty()));
-
-    }
-
-=======
         if(foodBalance>0)
         {
             Random rn = new Random();
@@ -581,6 +567,18 @@ public class Game {
             System.out.println("Votre agriculture ayant été déficitaire sur l'année, "+partisansToRemove+" sont décédés sur votre île.");
         }
     }
+    public double getScore() {
+        return this.score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
+    public void incrementScore(){
+        this.setScore(this.getScore() + (this.getDifficulty()*100) + (this.getTotalPartisans() * this.getGlobalSatisfactionPercentage() * this.getDifficulty()));
+
+    }
     public void reviewIndustryEndOfYear()
     {
         // Calculating and adding profits of the year
@@ -588,5 +586,5 @@ public class Game {
         this.setTreasury(this.getTreasury()+generated);
         System.out.println("Votre industrie a généré "+generated+"$ de profits cette année.");
     }
->>>>>>> 1d4206b5954aff6c917bda230706766a8d87d25d
+
 }
