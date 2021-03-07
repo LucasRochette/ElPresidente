@@ -587,5 +587,18 @@ public class Game {
         System.out.println("---- Nombre total de partisans : "+this.getTotalPartisans()+" ----");
         System.out.println("---- Satisfaction globale : "+this.getGlobalSatisfactionPercentage()+" ----");
     }
+    public boolean buyFood(int quantity)
+    {
+        double treasury=this.getTreasury();
+        double price=quantity*8;
+        if(quantity*8>treasury)
+        {
+            return false;
+        }
 
+        this.setTreasury(treasury-price);
+        this.setFoodUnits(this.getFoodUnits()+quantity);
+        return true;
+
+    }
 }

@@ -118,7 +118,7 @@ public class Menu {
                 this.gameMenuForNewYear();
                 break;
             case "2":
-                System.out.println("case 2");
+                this.foodMarket();
                 break;
             case "3":
                 System.out.println("case 2");
@@ -172,13 +172,7 @@ public class Menu {
         Effect effectsObj = choosenChoiceForEvent.getEffectsObj();
 
         game.applyEffects(effectsObj);
-
         System.out.println(effectsObj);
-
-
-        System.out.println(this.game.getFactions());
-        System.out.println("nb total de partisans : "+this.game.getTotalPartisans());
-        //System.out.println(this.game.getFactors());
         this.gameMenu();
     }
 
@@ -248,5 +242,43 @@ public class Menu {
                 break;
         }
     }
+
+    public void foodMarket(){
+        String quantity;
+        boolean isNumeric=false;
+        Scanner scanner = new Scanner(System.in);
+        do {
+            System.out.println("Vous possedez " + game.getTreasury() + "$");
+            System.out.println("Chaque unité de nourriture coûte 8$, veuillez saisir le montant désiré");
+            System.out.println("0 - Revenir au menu précédent");
+
+            quantity = scanner.nextLine();
+            isNumeric = quantity.chars().allMatch( Character::isDigit );
+            if(quantity.isEmpty())
+            {
+                isNumeric=false;
+            }
+            while (!isNumeric){
+                System.out.println("Veuillez saisir un montant valide");
+                quantity = scanner.nextLine();
+                isNumeric = quantity.chars().allMatch( Character::isDigit );
+                if(quantity.isEmpty())
+                {
+                    isNumeric=false;
+                }
+            }
+            int quantityInt=Integer.parseInt(quantity);
+            if(this.game.buyFood(quantityInt))
+            {
+                System.out.println("Vous avez bien acheté "+quantity+" unités de nourriture pour "+quantityInt*8+"$");
+            }
+            else
+            {
+                System.out.println("Vous n'avez pas la trésorerie nécessaire pour acheter cette quantité de nourriture");
+            }
+        }while (((Integer.parseInt(quantity)) !=0));
+        this.gameMenuForNewYear();
+    }
+
 
 }
