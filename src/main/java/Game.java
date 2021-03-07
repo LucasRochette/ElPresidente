@@ -432,10 +432,18 @@ public class Game {
         if(this.getTotalPartisans()+partisans<=0)
         {
             System.out.println("Tous vos partisans sont morts. GAME OVER");
-            return;
         }
 
-        for(int i=0;i<partisanQty;i++)
+        if(partisanQty>0)
+        {
+            addPartisanRandomly(partisanQty);
+        }
+        else{
+            removePartisanRandomly(partisanQty);
+        }
+
+
+      /*  for(int i=0;i<partisanQty;i++)
         {
             Random rand = new Random();
             Faction randomFaction;
@@ -443,9 +451,31 @@ public class Game {
                 randomFaction = this.getFactions().get(rand.nextInt(this.getFactions().size()));
             }while(randomFaction.getSupporters()<1);
             randomFaction.setSupporters(randomFaction.getSupporters()+1);
-        }
+        }*/
     }
+    private void addPartisanRandomly(int partisans)
+        {
+            for(int i=0;i<partisans;i++)
+            {
+                Random rand = new Random();
+                Faction randomFaction;
+                randomFaction = this.getFactions().get(rand.nextInt(this.getFactions().size()));
+                randomFaction.setSupporters(randomFaction.getSupporters()+1);
+            }
 
+        }
+
+    private void removePartisanRandomly(int partisans)
+    {
+        for(int i=0;i>partisans;i--)
+        {
+            Random rand = new Random();
+            Faction randomFaction;
+            randomFaction = this.getFactions().get(rand.nextInt(this.getFactions().size()));
+            randomFaction.setSupporters(randomFaction.getSupporters()-1);
+        }
+
+    }
 
     public void applyEffectOnFaction(Map<String,Double> onFactions) {
         for (Map.Entry<String, Double> entry : onFactions.entrySet()) {

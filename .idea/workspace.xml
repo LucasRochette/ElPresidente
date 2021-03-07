@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="ElPresidente:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="584b94c4-c2e0-426f-a433-9320521f4167" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/ElPresidente.iml" afterDir="false" />
@@ -38,7 +43,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../ElPresidente - Copy" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.15332031" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>
@@ -108,6 +113,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="765" y="204" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1615068106206" />
+    <state x="690" y="310" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1615136535390">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="690" y="310" key="#com.intellij.ide.util.TreeClassChooserDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1615136535390" />
     <state x="6" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1615067516223">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -116,22 +125,22 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1615121196287" />
-    <state width="1877" height="286" key="GridCell.Tab.0.bottom" timestamp="1615136289535">
+    <state width="1877" height="286" key="GridCell.Tab.0.bottom" timestamp="1615136692306">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="286" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1615136289535" />
-    <state width="1877" height="286" key="GridCell.Tab.0.center" timestamp="1615136289530">
+    <state width="1877" height="286" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1615136692306" />
+    <state width="1877" height="286" key="GridCell.Tab.0.center" timestamp="1615136692306">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="286" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1615136289530" />
-    <state width="1877" height="286" key="GridCell.Tab.0.left" timestamp="1615136289530">
+    <state width="1877" height="286" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1615136692306" />
+    <state width="1877" height="286" key="GridCell.Tab.0.left" timestamp="1615136692306">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="286" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1615136289530" />
-    <state width="1877" height="286" key="GridCell.Tab.0.right" timestamp="1615136289535">
+    <state width="1877" height="286" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1615136692306" />
+    <state width="1877" height="286" key="GridCell.Tab.0.right" timestamp="1615136692306">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="286" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1615136289535" />
+    <state width="1877" height="286" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1615136692306" />
     <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1614106557366">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
@@ -152,6 +161,10 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="490" y="175" key="Maven.ArtifactSearchDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1614077492944" />
+    <state x="440" y="94" key="SettingsEditor" timestamp="1615136544388">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="440" y="94" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1615136544388" />
     <state x="554" y="268" key="caller.chooser.dialog" timestamp="1614032223632">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
