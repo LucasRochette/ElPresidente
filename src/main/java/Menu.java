@@ -6,7 +6,7 @@ public class Menu {
 
     public Menu(Game game) {
         this.game = game;
-        System.out.println(game.getFactions());
+
 
     }
     public void bribesRequest(){
