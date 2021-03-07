@@ -12,7 +12,6 @@ public class Main {
         game.loadScenario(game.listScenario()); // Lauching game with scenario choice
 
         Menu menu = new Menu(game);
-        boolean gameIsLive=true;
         menu.chooseDifficulty(); // Display choose difficulty menu
         menu.gameMenu(); // Display game menu
     }

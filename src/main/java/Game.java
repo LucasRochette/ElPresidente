@@ -267,7 +267,6 @@ public class Game {
 
 
     public void loadScenario(String choosenScenario) {
-        //choosenScenario = "attackOnTitans.json";
         try {
             // create Gson instance
             Gson gson = new Gson();
