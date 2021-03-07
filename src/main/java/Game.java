@@ -198,7 +198,13 @@ public class Game {
     }
 
     protected void setFoodUnits(double foodUnits) {
-
+        for(Factor f : this.factors)
+        {
+            if(f.getName().equalsIgnoreCase("FOOD"))
+            {
+                f.setValue(foodUnits);
+            }
+        }
     }
 
     protected double countGlobalSatisfaction()
@@ -322,7 +328,6 @@ public class Game {
 
                     List effects = (List) choiceObj.get("effects"); // List of effects
 
-                  // actualEvent.addChoice(choiceName,effects.toString());
                     Effect actualEffect = null;
                     for(Object ef : effects)
                     {
@@ -337,7 +342,6 @@ public class Game {
                     actualEvent.addChoice(choiceName,actualEffect);
                 }
 
-                //actualEvent.setChoices(choiceList);
                 gameEvents.add(actualEvent);
             }
 
@@ -440,16 +444,6 @@ public class Game {
             removePartisanRandomly(partisanQty);
         }
 
-
-      /*  for(int i=0;i<partisanQty;i++)
-        {
-            Random rand = new Random();
-            Faction randomFaction;
-            do{
-                randomFaction = this.getFactions().get(rand.nextInt(this.getFactions().size()));
-            }while(randomFaction.getSupporters()<1);
-            randomFaction.setSupporters(randomFaction.getSupporters()+1);
-        }*/
     }
     private void addPartisanRandomly(int partisans)
         {
