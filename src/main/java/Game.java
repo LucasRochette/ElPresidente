@@ -15,11 +15,7 @@ public class Game {
     private String story;
     private int season;
     private int year;
-    private double agriculture;
-    private double industry;
     private double globalSatisfactionPercentage;
-    private double treasury;
-    private double foodUnits;
     private int difficulty;
 
     private List<Faction> factions;
@@ -37,10 +33,7 @@ public class Game {
         this.story = story;
         this.season = season;
         this.year = year;
-        this.agriculture = agriculture;
-        this.industry = industry;
         this.globalSatisfactionPercentage = globalSatisfactionPercentage;
-        this.treasury = treasury;
         this.difficulty = difficulty;
         this.factions = factions;
         this.events = events;
@@ -80,19 +73,48 @@ public class Game {
     }
 
     public double getAgriculture() {
-        return agriculture;
+        double agriculturePercentage = 0;
+        for(Factor f : this.factors)
+        {
+            if(f.getName().equalsIgnoreCase("AGRICULTURE"))
+            {
+                agriculturePercentage=f.getValue();
+            }
+        }
+        return agriculturePercentage;
     }
 
     protected void setAgriculture(double agriculture) {
-        this.agriculture = agriculture;
+        for(Factor f : this.factors)
+        {
+            if(f.getName().equalsIgnoreCase("AGRICULTURE"))
+            {
+                f.setValue(agriculture);
+            }
+        }
     }
 
     public double getIndustry() {
-        return industry;
+        double industryPercentage = 0;
+        for(Factor f : this.factors)
+        {
+            if(f.getName().equalsIgnoreCase("INDUSTRY"))
+            {
+                industryPercentage=f.getValue();
+            }
+        }
+        return industryPercentage;
+
     }
 
     protected void setIndustry(double industry) {
-        this.industry = industry;
+        for(Factor f : this.factors)
+        {
+            if(f.getName().equalsIgnoreCase("INDUSTRY"))
+            {
+                f.setValue(industry);
+            }
+        }
     }
 
     public double getGlobalSatisfactionPercentage() {
@@ -140,9 +162,16 @@ public class Game {
         return treasury;
     }
 
-    protected void setTreasury(double treasury) {
-        this.treasury = treasury;
+    public void setTreasury(double treasury) {
+        for(Factor f : this.factors)
+        {
+            if(f.getName().equalsIgnoreCase("TREASURY"))
+            {
+                f.setValue(treasury);
+            }
+        }
     }
+
 
     public int getDifficulty() {
         return difficulty;
@@ -154,11 +183,20 @@ public class Game {
 
 
     public double getFoodUnits() {
+        double foodUnits = 0;
+        for(Factor f : this.factors)
+        {
+            if(f.getName().equalsIgnoreCase("FOOD"))
+            {
+                foodUnits=f.getValue();
+            }
+        }
         return foodUnits;
+
     }
 
     protected void setFoodUnits(double foodUnits) {
-        this.foodUnits = foodUnits;
+
     }
 
     protected double countGlobalSatisfaction()
