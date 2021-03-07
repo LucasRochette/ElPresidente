@@ -33,8 +33,8 @@ public class Main {
 
 */
         Game game = new Game();
-        game.loadScenario(game.listScenario());
-
+        //game.loadScenario(game.listScenario());
+        game.loadScenario("attackOnTitans.json");
 
         Menu menu = new Menu(game);
 
