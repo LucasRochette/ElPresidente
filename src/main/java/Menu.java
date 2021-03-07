@@ -89,6 +89,8 @@ public class Menu {
     }
     public void gameMenuForNewYear()
     {
+        this.game.reviewAgricultureEndOfYear();
+        this.game.reviewIndustryEndOfYear();
         String choice;
         boolean isNumeric=false;
         System.out.println("___ Une année vient de s'écouler sur votre île ___");
