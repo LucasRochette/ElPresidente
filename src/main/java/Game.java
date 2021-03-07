@@ -163,7 +163,7 @@ public class Game {
             totalPartisan+=partisan;
             globalSatisfactionPercentage+=partisan*satisfaction;
         }
-        globalSatisfactionPercentage=globalSatisfactionPercentage/totalPartisan;
+         globalSatisfactionPercentage=(double)Math.round((globalSatisfactionPercentage/totalPartisan) * 100d) / 100d; //limiting to 2 decimals
         return globalSatisfactionPercentage;
 
     }
@@ -303,10 +303,8 @@ public class Game {
             //Game game = new Game();
             this.setName(name);
             this.setStory(story);
-           /* this.setAgriculture(agriculturePercentage);
-            this.setIndustry(industryPercentage);
-            this.setTreasury(treasury);
-            this.setFoodUnits(foodUnits);*/
+            this.setSeason(0);
+            this.setYear(0);
             this.setFactions(factionList);
             this.setGlobalSatisfactionPercentage(this.countGlobalSatisfaction());
             this.setEvents(gameEvents);

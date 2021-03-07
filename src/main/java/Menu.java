@@ -40,7 +40,6 @@ public class Menu {
         }
         String choice;
         boolean isNumeric=false;
-        System.out.println("___ Une année vient de s'écouler sur votre île ___");
         do{
             System.out.println("1 - ??Définir les facteurs Agriculture et Industrie");
             System.out.println("2 - Passer au tour suivant");
@@ -73,7 +72,7 @@ public class Menu {
     {
         String choice;
         boolean isNumeric=false;
-
+        System.out.println("___ Une année vient de s'écouler sur votre île ___");
         do{
             System.out.println("1 - Définir les facteurs Agriculture et Industrie");
             System.out.println("2 - Soudoyer une faction");
