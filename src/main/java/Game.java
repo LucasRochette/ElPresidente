@@ -16,7 +16,7 @@ public class Game {
     private int season;
     private int year;
     private double globalSatisfactionPercentage;
-    private int difficulty;
+    private double difficulty;
 
     private List<Faction> factions;
     private List<Factor> factors;
@@ -173,11 +173,11 @@ public class Game {
     }
 
 
-    public int getDifficulty() {
+    public double getDifficulty() {
         return difficulty;
     }
 
-    protected void setDifficulty(int difficulty) {
+    protected void setDifficulty(double difficulty) {
         this.difficulty = difficulty;
     }
 
@@ -359,10 +359,10 @@ public class Game {
             System.out.println("Description : "+this.getStory());
         //    System.out.println("---- Agriculture percentage : "+this.getAgriculture()+" - Industry percentage : "+this.getIndustry()+" ----");
         //    System.out.println("---- Treasury : "+this.getTreasury()+" - FoodUnits : "+this.getFoodUnits()+" ----");
-            System.out.println(this.getFactors());
-            System.out.println(this.getFactions());
-            System.out.println("---- Global statisfaction percentage : "+this.getGlobalSatisfactionPercentage()+" ----");
-            System.out.println("---- Events : "+this.getEvents());
+           // System.out.println(this.getFactors());
+          //  System.out.println(this.getFactions());
+         //   System.out.println("---- Global statisfaction percentage : "+this.getGlobalSatisfactionPercentage()+" ----");
+            //System.out.println("---- Events : "+this.getEvents());
             // close reader
             reader.close();
 

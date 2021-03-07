@@ -33,16 +33,11 @@ public class Main {
 
 */
         Game game = new Game();
-        //game.loadScenario(game.listScenario());
-        game.loadScenario("attackOnTitans.json");
+        game.loadScenario(game.listScenario()); // Lauching game with scenario choice
 
         Menu menu = new Menu(game);
-
-
-
-
         boolean gameIsLive=true;
-
-            menu.gameMenu();
+        menu.chooseDifficulty(); // Display choose difficulty menu
+        menu.gameMenu(); // Display game menu
     }
 }

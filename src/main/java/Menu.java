@@ -203,6 +203,41 @@ public class Menu {
                 break;
         }
     }
+    public void chooseDifficulty()
+    {
+        String choice;
+        boolean isNumeric=false;
 
+        do{
+            System.out.println("Choisissez le niveau de difficulté");
+            System.out.println("1 - Facile");
+            System.out.println("2 - Normal");
+            System.out.println("3 - Difficile");
+            Scanner scan = new Scanner(System.in);
+            choice = scan.nextLine();
+            isNumeric = choice.chars().allMatch( Character::isDigit );
+            if(choice.isEmpty())
+            {
+                isNumeric=false;
+            }
+
+        }while(!isNumeric || Integer.parseInt(choice)<1 || Integer.parseInt(choice)>3);
+
+        switch (choice)
+        {
+            case "1":
+                System.out.println("Vous avez choisi le mode Facile");
+                this.game.setDifficulty(0.5);
+                break;
+            case "2":
+                System.out.println("Vous avez choisi le mode Normal");
+                this.game.setDifficulty(1);
+                break;
+            case "3":
+                System.out.println("Vous avez choisi le mode Difficile");
+                this.game.setDifficulty(2);
+                break;
+        }
+    }
 
 }
