@@ -95,6 +95,7 @@ public class Menu {
         String choice;
         boolean isNumeric=false;
         System.out.println("___ Une année vient de s'écouler sur votre île ___");
+        System.out.println("Votre score est de " + this.game.getScore() + " points");
         Scanner scan = new Scanner(System.in);
         do{
             System.out.println("1 - Afficher les statistiques de votre île");
