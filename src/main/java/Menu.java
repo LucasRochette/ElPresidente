@@ -10,23 +10,38 @@ public class Menu {
 
     }
     public void bribesRequest(){
-        Scanner scanner = new Scanner(System.in);
+            String factionChoice;
+            boolean isNumeric=false;
+            Scanner scanner = new Scanner(System.in);
 
-        for (Faction faction : game.getFactions()){
-            if ((this.game.getTreasury() >= (double)faction.getSupporters()*15) && (faction.getSupporters() < 100)){
-                System.out.println("Vous possedez " + this.game.getTreasury() + "$");
-                System.out.println("Soudoyer la faction des "+ faction.getName() + "pour " + faction.getSupporters()*15 + "$" );
-                System.out.println(faction.getName() + " possède " + faction.getApprobation() + "% de satisfaction");
-                System.out.println("Oui ou Non");
-                String a = scanner.nextLine();
-                if (a.equals("Oui") || a.equals("oui")){
-                    this.game.bribes(faction);
-                    System.out.println(faction.getName() + " possède à présent " + faction.getApprobation() + "% de satisfaction");
-                }
-            }
-        };
+                do {
+                    System.out.println("Vous possedez " + game.getTreasury() + "$");
 
-    }
+                    for (Faction faction : game.getFactions()){
+
+                        System.out.println(game.getFactions().indexOf(faction)+1 + " - Soudoyer la faction des " + faction.getName() + " pour " + faction.getSupporters()*15 + "$" );
+
+                    }
+
+                    System.out.println("0 - Ne soudoyer personne");
+                    factionChoice = scanner.nextLine();
+                    isNumeric = factionChoice.chars().allMatch( Character::isDigit );
+                    while (!isNumeric){
+                        System.out.println("Veuillez saisir un chiffre entre 0 et 8");
+                        factionChoice = scanner.nextLine();
+                        isNumeric = factionChoice.chars().allMatch( Character::isDigit );
+                    }
+                    if ((Integer.parseInt(factionChoice) > 0) && ((Integer.parseInt(factionChoice) < 9))){
+                        game.bribes(game.getFactions().get((Integer.parseInt(factionChoice)-1)));
+                        System.out.println("Le taux d'approbation de la faction des "+ game.getFactions().get((Integer.parseInt(factionChoice)-1)).getName()+ " est de " + game.getFactions().get((Integer.parseInt(factionChoice)-1)).getApprobation() + "%");
+                    }
+                    else if ((Integer.parseInt(factionChoice) < 0) || ((Integer.parseInt(factionChoice) >= 9))){
+                        System.out.println("Veuillez saisir un chiffre entre 0 et 8");
+                    }
+
+                }while (((Integer.parseInt(factionChoice)) !=0));
+            this.gameMenuForNewYear();
+        }
 
 
 
@@ -40,11 +55,12 @@ public class Menu {
         }
         String choice;
         boolean isNumeric=false;
+        Scanner scan = new Scanner(System.in);
         do{
             System.out.println("1 - ??Définir les facteurs Agriculture et Industrie");
             System.out.println("2 - Passer au tour suivant");
             System.out.println("3 - Abandonner la partie");
-            Scanner scan = new Scanner(System.in);
+
             choice = scan.nextLine();
             isNumeric = choice.chars().allMatch( Character::isDigit );
 
@@ -73,12 +89,12 @@ public class Menu {
         String choice;
         boolean isNumeric=false;
         System.out.println("___ Une année vient de s'écouler sur votre île ___");
+        Scanner scan = new Scanner(System.in);
         do{
             System.out.println("1 - Définir les facteurs Agriculture et Industrie");
             System.out.println("2 - Soudoyer une faction");
             System.out.println("3 - Passer au tour suivant");
             System.out.println("4 - Abandonner la partie");
-            Scanner scan = new Scanner(System.in);
             choice = scan.nextLine();
             isNumeric = choice.chars().allMatch( Character::isDigit );
 
@@ -91,11 +107,12 @@ public class Menu {
                 break;
             case "2":
                 System.out.println("case 2");
-                this.game.incrementSeason();
-                this.callEvent();
+                this.bribesRequest();
                 break;
             case "3":
                 System.out.println("case 3");
+                this.game.incrementSeason();
+                this.callEvent();
                 break;
             case "4":
                 System.out.println("case 4 - end game");
