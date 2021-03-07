@@ -63,7 +63,10 @@ public class Menu {
 
             choice = scan.nextLine();
             isNumeric = choice.chars().allMatch( Character::isDigit );
-
+            if(choice.isEmpty())
+            {
+                isNumeric=false;
+            }
         }while(!isNumeric || Integer.parseInt(choice)<1 || Integer.parseInt(choice)>3);
 
         switch (choice)
@@ -97,7 +100,10 @@ public class Menu {
             System.out.println("4 - Abandonner la partie");
             choice = scan.nextLine();
             isNumeric = choice.chars().allMatch( Character::isDigit );
-
+            if(choice.isEmpty())
+            {
+                isNumeric=false;
+            }
         }while(!isNumeric || Integer.parseInt(choice)<1 || Integer.parseInt(choice)>4);
 
         switch (choice)
@@ -133,6 +139,7 @@ public class Menu {
 
         boolean isNumeric=false;
         int i;
+        Scanner scan = new Scanner(System.in);
         do{
             i=0;
             System.out.println("/!\\/!\\/!\\ Evenement /!\\/!\\/!\\");
@@ -144,10 +151,12 @@ public class Menu {
                 System.out.println(i+" - "+e.getName());
 
             }
-            Scanner scan = new Scanner(System.in);
             choice = scan.nextLine();
             isNumeric = choice.chars().allMatch( Character::isDigit );
-
+            if(choice.isEmpty())
+            {
+                isNumeric=false;
+            }
         }while(!isNumeric || Integer.parseInt(choice)<1 || Integer.parseInt(choice)>i);
 
         Choice choosenChoiceForEvent=eventChoices.get(Integer.parseInt(choice)-1);
@@ -176,6 +185,10 @@ public class Menu {
             Scanner scan = new Scanner(System.in);
             choice = scan.nextLine();
             isNumeric = choice.chars().allMatch( Character::isDigit );
+            if(choice.isEmpty())
+            {
+                isNumeric=false;
+            }
 
         }while(!isNumeric || Integer.parseInt(choice)<1 || Integer.parseInt(choice)>2);
 
@@ -183,7 +196,7 @@ public class Menu {
         {
             case "1":
                 System.out.println("Exit game");
-                break;
+                return;
             case "2":
                 System.out.println("back to the menu");
                 this.gameMenu();
