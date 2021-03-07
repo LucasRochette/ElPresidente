@@ -32,10 +32,15 @@ public class Menu {
 
     public void gameMenu()
     {
-        String choice;
-        boolean isNumeric=false;
         int season = this.game.getSeason();
         int year = this.game.getYear();
+        if(season==0 && year>0) // 1 year passed
+        {
+            this.gameMenuForNewYear();
+        }
+        String choice;
+        boolean isNumeric=false;
+        System.out.println("___ Une année vient de s'écouler sur votre île ___");
         do{
             System.out.println("1 - ??Définir les facteurs Agriculture et Industrie");
             System.out.println("2 - Passer au tour suivant");
@@ -53,15 +58,51 @@ public class Menu {
                 break;
             case "2":
                 System.out.println("case 2");
-               // this.game.incrementSeason;
+                this.game.incrementSeason();
                 this.callEvent();
                 break;
             case "3":
                 System.out.println("case 3 - end game");
+                this.callExit();
                 break;
         }
 
 
+    }
+    public void gameMenuForNewYear()
+    {
+        String choice;
+        boolean isNumeric=false;
+
+        do{
+            System.out.println("1 - Définir les facteurs Agriculture et Industrie");
+            System.out.println("2 - Soudoyer une faction");
+            System.out.println("3 - Passer au tour suivant");
+            System.out.println("4 - Abandonner la partie");
+            Scanner scan = new Scanner(System.in);
+            choice = scan.nextLine();
+            isNumeric = choice.chars().allMatch( Character::isDigit );
+
+        }while(!isNumeric || Integer.parseInt(choice)<1 || Integer.parseInt(choice)>4);
+
+        switch (choice)
+        {
+            case "1":
+                System.out.println("case 1");
+                break;
+            case "2":
+                System.out.println("case 2");
+                this.game.incrementSeason();
+                this.callEvent();
+                break;
+            case "3":
+                System.out.println("case 3");
+                break;
+            case "4":
+                System.out.println("case 4 - end game");
+                this.callExit();
+                break;
+        }
     }
 
     public void callEvent()
@@ -107,6 +148,32 @@ public class Menu {
         this.gameMenu();
     }
 
+    public void callExit()
+    {
+        String choice;
+        boolean isNumeric=false;
+
+        do{
+            System.out.println("Etes vous sûr d'abandonner la partie ? Toute la progression sera perdue");
+            System.out.println("1 - Oui");
+            System.out.println("2 - Non");
+            Scanner scan = new Scanner(System.in);
+            choice = scan.nextLine();
+            isNumeric = choice.chars().allMatch( Character::isDigit );
+
+        }while(!isNumeric || Integer.parseInt(choice)<1 || Integer.parseInt(choice)>2);
+
+        switch (choice)
+        {
+            case "1":
+                System.out.println("Exit game");
+                break;
+            case "2":
+                System.out.println("back to the menu");
+                this.gameMenu();
+                break;
+        }
+    }
 
 
 }

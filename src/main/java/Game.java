@@ -1,10 +1,12 @@
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.lang.reflect.Field;
+import java.net.URL;
 import java.util.*;
 
 public class Game {
@@ -168,20 +170,54 @@ public class Game {
 
     protected void incrementSeason()
     {
-        if(this.season==4)
+        if(this.getSeason()==3) //If its last season of year, increments year and reset season to 0
         {
-
+            this.setSeason(0);
+            this.setYear(this.getYear()+1);
+        }
+        else
+        {
+            this.setSeason(this.getSeason()+1);
         }
     }
+    public String listScenario()
+    {
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        URL url = loader.getResource("json");
+        String path = url.getPath();
+        File[] allScenarios = new File(path).listFiles();
+
+
+        String choice;
+        boolean isNumeric=false;
+        int i;
+        do{
+            i=0;
+            System.out.println("___ Choisissez votre scenario ___");
+            for(File f : allScenarios)
+            {
+                i++;
+                System.out.println(i+" - "+f.getName().split("\\.")[0]);
+            }
+            Scanner scan = new Scanner(System.in);
+            choice = scan.nextLine();
+            isNumeric = choice.chars().allMatch( Character::isDigit );
+
+        }while(!isNumeric || Integer.parseInt(choice)<1 || Integer.parseInt(choice)>i);
+
+            File choosenFile=allScenarios[Integer.parseInt(choice)-1];
+            return choosenFile.getName();
+    }
+
 
     public void loadScenario(String choosenScenario) {
-        choosenScenario = "attackOnTitans.json";
+        //choosenScenario = "attackOnTitans.json";
         try {
             // create Gson instance
             Gson gson = new Gson();
 
             // get the file from ressource folder
-            InputStream is = getClass().getClassLoader().getResourceAsStream(choosenScenario);
+            InputStream is = getClass().getClassLoader().getResourceAsStream("json/"+choosenScenario);
             // create a reader
             Reader reader = new InputStreamReader(is);
             // convert JSON file to map

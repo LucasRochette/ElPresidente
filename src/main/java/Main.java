@@ -33,7 +33,7 @@ public class Main {
 
 */
         Game game = new Game();
-        game.loadScenario("attackontitans");
+        game.loadScenario(game.listScenario());
 
 
         Menu menu = new Menu(game);
