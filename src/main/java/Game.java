@@ -17,6 +17,7 @@ public class Game {
     private int year;
     private double globalSatisfactionPercentage;
     private double difficulty;
+    private double score;
 
     private List<Faction> factions;
     private List<Factor> factors;
@@ -37,6 +38,7 @@ public class Game {
         this.difficulty = difficulty;
         this.factions = factions;
         this.events = events;
+        this.score = 0;
     }
 
 
@@ -216,6 +218,7 @@ public class Game {
 
     protected void incrementSeason()
     {
+
         if(this.getSeason()==3) //If its last season of year, increments year and reset season to 0
         {
             this.setSeason(0);
@@ -225,6 +228,7 @@ public class Game {
         {
             this.setSeason(this.getSeason()+1);
         }
+        this.incrementScore();
     }
     public String listScenario()
     {
@@ -507,6 +511,19 @@ public class Game {
             total+=faction.getSupporters();
         }
         return total;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
+    public void incrementScore(){
+        this.setScore(this.getScore() + (this.getDifficulty()*100) + (this.getTotalPartisans() * this.getGlobalSatisfactionPercentage() * this.getDifficulty()));
+
     }
 
 }
